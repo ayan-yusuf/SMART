@@ -1,0 +1,2 @@
+# SMART
+Geofence Attendance system

@@ -84,9 +84,10 @@ document.querySelector(".login-button").addEventListener("click", function() {
     <div class="section" data-anchor="skills">
       <div class="content">
         <h1 style= "color:rgb(250, 104, 104); font-size: 50px">About</h1>
+        
         <p>
           Try
-          <a href="advance.html">
+          <a href="geo.html">
               Geofencing
               <svg viewBox="0 0 70 36">
                   <path d="M6.9739 30.8153H63.0244C65.5269 30.8152 75.5358 -3.68471 35.4998 2.81531C-16.1598 11.2025 0.894099 33.9766 26.9922 34.3153C104.062 35.3153 54.5169 -6.68469 23.489 9.31527" />
@@ -96,6 +97,238 @@ document.querySelector(".login-button").addEventListener("click", function() {
       </p>
         </div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #ffffff;
+          font-family: Arial, sans-serif;
+        }
+      
+        .section {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          background-color: #ffffff;
+        }
+      
+        .content {
+          text-align: center;
+        }
+      
+        h1 {
+          color: #fa6868;
+          font-size: 36px;
+          margin-bottom: 20px;
+        }
+      
+        p {
+          font-size: 18px;
+          margin-bottom: 3px;
+        }
+      
+        .timeline-container {
+          width: 1100px; /* Adjust the width as needed */
+          overflow: hidden;
+          position: relative;
+        }
+      
+        .timeline {
+          display: flex;
+          flex-direction: column; /* Changed to column */
+          align-items: center; /* Added to center align */
+          transition: transform 0.9s ease-in-out;
+        }
+      
+        .event {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px; /* Added margin-bottom for spacing */
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
+        }
+      
+        .event.visible {
+          opacity: 1;
+        }
+      
+        .event-title {
+          font-size: 24px; /* Increased font size */
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+      
+        .event-description {
+          margin-left: 1px;
+          font-size: 18px; /* Increased font size */
+        }
+      
+        .event-description p {
+          margin-bottom: 10px;
+        }
+      
+        img {
+          max-width: 200px; /* Increased max-width */
+          max-height: 170px; /* Increased max-height */
+          border-radius: 0px;
+        }
+      
+        .event:nth-child(1),
+        .event:nth-child(4) {
+          margin-right: 0; /* Resetting margin-right */
+        }
+      </style>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const geofenceEvents = document.querySelectorAll(".section.geofence .event");
+          let geofenceIndex = 0;
+      
+          function showGeofenceEvent() {
+            geofenceEvents.forEach((event, i) => {
+              if (i === geofenceIndex) {
+                event.classList.add("visible");
+              } else {
+                event.classList.remove("visible");
+              }
+            });
+          }
+      
+          function nextGeofenceEvent() {
+            geofenceIndex++;
+            if (geofenceIndex >= geofenceEvents.length) {
+              geofenceIndex = 0;
+            }
+            showGeofenceEvent();
+          }
+      
+          setInterval(nextGeofenceEvent, 3000); // Automatically move to the next event every 3 seconds
+      
+          showGeofenceEvent();
+      
+          const faceRecognitionEvents = document.querySelectorAll(".section.face-recognition .event");
+          let faceRecognitionIndex = 0;
+      
+          function showFaceRecognitionEvent() {
+            faceRecognitionEvents.forEach((event, i) => {
+              if (i === faceRecognitionIndex) {
+                event.classList.add("visible");
+              } else {
+                event.classList.remove("visible");
+              }
+            });
+          }
+      
+          function nextFaceRecognitionEvent() {
+            faceRecognitionIndex++;
+            if (faceRecognitionIndex >= faceRecognitionEvents.length) {
+              faceRecognitionIndex = 0;
+            }
+            showFaceRecognitionEvent();
+          }
+      
+          setInterval(nextFaceRecognitionEvent, 3000); // Automatically move to the next event every 3 seconds
+      
+          showFaceRecognitionEvent();
+        });
+      </script>
+      
+      <div class="section geofence" data-anchor="geofence">
+        <div class="content">
+          <h1>Geofence Setup</h1>
+      
+          <div class="timeline-container">
+            <div class="timeline">
+              <div class="event">
+                <div class="event-title">Step 1: Geofence Setup</div>
+                <div class="event-description">
+                  <p>Administrators define geofences around specific locations such as office premises, classrooms, or event venues.</p>
+                  <img src="geo_setup.jpg" alt="Geofence Setup">
+                </div>
+              </div>
+              <div class="event">
+                <div class="event-title">Step 2: Mobile App Installation</div>
+                <div class="event-description">
+                  <p>Users install the attendance system's mobile app on their smartphones.</p>
+                  <img src="mobile app installation.jpg" alt="Mobile App Installation">
+                </div>
+              </div>
+              <div class="event">
+                <div class="event-title">Step 3: Geofence Detection</div>
+                <div class="event-description">
+                  <p>As users enter or exit a geofenced area, the mobile app sends location updates to the attendance system.</p>
+                  <img src="geofence detection.jpg" alt="Geofence Detection">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section face-recognition" data-anchor="face-recognition">
+        <div class="content">
+          <h1>Face Recognition</h1>
+      
+          <div class="timeline-container">
+            <div class="timeline">
+              <div class="event">
+                <div class="event-title">Step 4: Face Recognition</div>
+                <div class="event-description">
+                  <p>The attendance system uses face recognition technology to identify the user within the geofenced area.</p>
+                  <img src="face_recognition.png" alt="Face Recognition">
+                </div>
+              </div>
+              <div class="event">
+                <div class="event-title">Step 5: Attendance Recording</div>
+                <div class="event-description">
+                  <p>Upon successful face recognition, the system records the user's attendance in the geofenced area.</p>
+                  <img src="attendance_recording.png" alt="Attendance Recording">
+                </div>
+              </div>
+              <div class="event">
+                <div class="event-title">Step 6: Notification and Alerts</div>
+                <div class="event-description">
+                  <p>The attendance system provides administrators with comprehensive reports and analytics, allowing them to track attendance, generate reports, and analyze patterns.</p>
+                  <img src="notification_alerts.png" alt="Notification and Alerts">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+<!-- end section -->
+
       
     <!-- end section -->
 
@@ -172,8 +405,8 @@ document.querySelector(".login-button").addEventListener("click", function() {
   </div>
 </div>
 <script>
-  // Initialize EmailJS with your user ID
-  emailjs.init("YOUR_USER_ID");
+  // Initialize EmailJS with your API key
+  emailjs.init("tAf-H1X2ZZnbes1vO");
 
   // Add event listener to the form submit event
   document.getElementById("contactForm").addEventListener("submit", function(event) {
@@ -201,6 +434,7 @@ document.querySelector(".login-button").addEventListener("click", function() {
       });
   });
 </script>
+
 
     <!-- end section -->
 

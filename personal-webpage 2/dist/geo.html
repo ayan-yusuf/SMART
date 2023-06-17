@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--
+ @license
+ Copyright 2019 Google LLC. All Rights Reserved.
+ SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+  <head>
+    <title>Geofence Area</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script>
+      /**
+       * @license
+       * Copyright 2019 Google LLC. All Rights Reserved.
+       * SPDX-License-Identifier: Apache-2.0
+       */
+      // This example creates a simple polygon representing the geofence area.
+      let map;
+      let geofenceCoords = [];
+      let isSelecting = false;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 7,
+          center: { lat: 28.6139, lng: 77.2090 }, // Default center location
+        });
+
+        // Construct the polygon.
+        const geofence = new google.maps.Polygon({
+          paths: geofenceCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.35,
+        });
+
+        geofence.setMap(map);
+
+        // Add click event listener to the map
+        map.addListener("click", (event) => {
+          if (isSelecting) {
+            const clickedLatLng = {
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng(),
+            };
+
+            // Add clicked coordinates to the polygon's path
+            geofenceCoords.push(clickedLatLng);
+            geofence.setPaths([geofenceCoords]);
+
+            // Update the selected area display
+            updateSelectedArea();
+          }
+        });
+      }
+
+      function toggleSelection() {
+        isSelecting = !isSelecting;
+        document.getElementById("selectBtn").innerText = isSelecting
+          ? "Stop Selecting"
+          : "Start Selecting";
+      }
+
+      function updateSelectedArea() {
+        const selectedAreaDiv = document.getElementById("selectedArea");
+        selectedAreaDiv.innerHTML = ""; // Clear previous content
+
+        for (let i = 0; i < geofenceCoords.length; i++) {
+          const coordinate = geofenceCoords[i];
+          const coordinateText =
+            "Coordinate " + (i + 1) + ": " + coordinate.lat + ", " + coordinate.lng;
+          const coordinateElement = document.createElement("p");
+          coordinateElement.innerText = coordinateText;
+          selectedAreaDiv.appendChild(coordinateElement);
+        }
+
+        // Calculate and display the area of the geofence polygon
+        const area = google.maps.geometry.spherical.computeArea(geofenceCoords);
+        const areaText = "Area: " + (area / 1000000).toFixed(2) + " sq km";
+        const areaElement = document.createElement("p");
+        areaElement.innerText = areaText;
+        selectedAreaDiv.appendChild(areaElement);
+      }
+
+      window.initMap = initMap;
+    </script>
+    <style>
+      /**
+       * @license
+       * Copyright 2019 Google LLC. All Rights Reserved.
+       * SPDX-License-Identifier: Apache-2.0
+       */
+      /** 
+       * Always set the map height explicitly to define the size of the div element
+       * that contains the map. 
+       */
+      #map {
+        height: 600px;
+        width: 100%;
+        border: 5px solid rgb(48, 46, 46);
+        border-radius: 10px;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin-top: 20px;
+      }
+
+      #selectBtn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        background-color: #163c65;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #selectedArea {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+      }
+
+      #selectedArea p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Select the Geofence Area</h1>
+    <button id="selectBtn" onclick="toggleSelection()">Start Selecting</button>
+    <div id="map"></div>
+    <div id="selectedArea"></div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly&libraries=geometry"
+      defer
+    ></script>
+    <script>
+      // Update the selected area display initially
+      updateSelectedArea();
+    </script>
+  </body>
+</html>
